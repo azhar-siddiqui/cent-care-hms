@@ -1,0 +1,23 @@
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "sortImports": {
+    "newlinesBetween": true,
+    "internalPattern": ["^@/(.*)$"],
+    "groups": [
+      "side_effect",
+      "side_effect_style",
+      "type-import",
+      "value-builtin",
+      "value-external",
+      "type-internal",
+      "value-internal",
+      ["type-parent", "type-sibling", "type-index"],
+      ["value-parent", "value-sibling", "value-index"],
+      "style",
+      "unknown"
+    ]
+  }
+}

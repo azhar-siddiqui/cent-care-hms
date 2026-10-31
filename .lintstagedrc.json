@@ -1,0 +1,4 @@
+{
+  "*.{js,jsx,ts,tsx}": ["pnpm lint:fix", "pnpm fmt --write"],
+  "*.json": ["pnpm fmt --write"]
+}
