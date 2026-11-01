@@ -1,7 +1,7 @@
 export const roleAccess = [
   {
     role: 'Super admin',
-    access: 'Full control and admin invites. The seed creates the only super admin.',
+    access: 'Full control and staff invites. The seed creates the only super admin.',
   },
   {
     role: 'Admin',

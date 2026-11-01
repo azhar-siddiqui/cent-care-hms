@@ -7,13 +7,14 @@ import { NextResponse, type NextRequest } from 'next/server';
 export async function updateSession(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const isLogin = pathname === '/login';
+  const isPublic = isLogin || pathname.startsWith('/invite/');
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-centcare-path', pathname);
 
   const env = getSupabasePublishableEnv();
 
   if (!env) {
-    if (isLogin) {
+    if (isPublic) {
       return NextResponse.next({ request: { headers: requestHeaders } });
     }
 
@@ -49,7 +50,7 @@ export async function updateSession(request: NextRequest) {
   const identity = await readIdentity(supabase);
 
   if (!identity) {
-    if (isLogin) {
+    if (isPublic) {
       return supabaseResponse;
     }
 
@@ -63,7 +64,7 @@ export async function updateSession(request: NextRequest) {
   }
 
   if (staff.status !== 'ok') {
-    if (isLogin) {
+    if (isPublic) {
       return supabaseResponse;
     }
 

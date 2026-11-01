@@ -3,6 +3,7 @@ import { loadClinicSummary, staffRoleLabels, staffRoleOrder } from '@/lib/clinic
 import { findNavItem } from '@/lib/navigation';
 import { roleAccess } from '@/lib/roles';
 import { requireAccess } from '@/lib/staff';
+import Link from 'next/link';
 import { Suspense } from 'react';
 
 export const instant = false;
@@ -10,7 +11,7 @@ export const instant = false;
 export const metadata = { title: 'Staff' };
 
 export default async function StaffPage() {
-  await requireAccess('/staff');
+  const staff = await requireAccess('/staff');
   const page = findNavItem('/staff');
 
   return (
@@ -31,7 +32,7 @@ export default async function StaffPage() {
             <h2 className="text-sm font-medium">What each role can do</h2>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[36rem] text-left text-sm">
+            <table className="w-full min-w-xl text-left text-sm">
               <thead className="text-xs text-muted-foreground">
                 <tr className="border-b border-border">
                   <th className="px-4 py-2 font-medium">Role</th>
@@ -54,10 +55,25 @@ export default async function StaffPage() {
           </div>
         </section>
 
-        <p className="text-sm text-muted-foreground">
-          Admin invites are not open yet. The database already blocks a second super admin and a
-          fourth admin.
-        </p>
+        {staff.role === 'SUPER_ADMIN' ? (
+          <section className="rounded-xl border border-border bg-card px-4 py-4 shadow-sm">
+            <h2 className="text-sm font-medium">Staff invites</h2>
+            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+              Invite an admin, receptionist, doctor, or nurse. You get a link to share. Admins are
+              limited to 3 seats, and a pending admin invite uses one.
+            </p>
+            <Link
+              href="/staff/invites"
+              className="mt-4 inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/80"
+            >
+              Open invite screen
+            </Link>
+          </section>
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            Only the super admin can invite staff.
+          </p>
+        )}
       </div>
     </>
   );

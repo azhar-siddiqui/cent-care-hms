@@ -4,6 +4,14 @@ export const staffRoles = ['SUPER_ADMIN', 'ADMIN', 'RECEPTIONIST', 'DOCTOR', 'NU
 
 export type StaffRoleName = (typeof staffRoles)[number];
 
+export const invitableRoles = ['ADMIN', 'RECEPTIONIST', 'DOCTOR', 'NURSE'] as const satisfies readonly StaffRoleName[];
+
+export type InvitableRole = (typeof invitableRoles)[number];
+
+export function isInvitableRole(role: string): role is InvitableRole {
+  return (invitableRoles as readonly string[]).includes(role);
+}
+
 export const roleLabels: Record<StaffRoleName, string> = {
   SUPER_ADMIN: 'Super admin',
   ADMIN: 'Admin',

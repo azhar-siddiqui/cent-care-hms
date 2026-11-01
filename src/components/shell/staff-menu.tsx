@@ -90,6 +90,7 @@ export function StaffMenu({
           <DropdownMenuItem
             variant="destructive"
             className="min-h-8 w-full text-sm"
+            nativeButton
             render={<button type="submit" />}
           >
             <IconLogout stroke={1.75} />
